@@ -4,7 +4,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import cors from 'cors';
 import connectDB from './config/db.js';
-import loadEnv from './config/dotenvConfig.js';
 import authRoutes from './routes/authRoutes.js';
 import itemRoutes from './routes/itemRoutes.js';
 import swapRoutes from './routes/swapRoutes.js';
