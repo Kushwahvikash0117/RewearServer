@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import path from "path";
+import { fileURLToPath } from "url";
 import cors from 'cors';
 import connectDB from './config/db.js';
 import loadEnv from './config/dotenvConfig.js';
@@ -9,7 +11,16 @@ import swapRoutes from './routes/swapRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 loadEnv();
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env only if it exists locally (ignore on Render)
+try {
+  dotenv.config({ path: path.join(__dirname, "../.env") });
+  console.log("✅ .env variables loaded");
+} catch (err) {
+  console.warn("⚠️  Skipping local .env load (Render will use dashboard vars)");
+}
 connectDB();
 
 const app = express();
