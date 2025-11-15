@@ -59,10 +59,15 @@ export const respondToSwap = async (req, res) => {
 
 export const getAllSwaps = async (req, res) => {
   try {
-    const swaps = await Swap.find().populate("offeredItem requestedItem");
+    const swaps = await Swap.find()
+      .populate("offeredItem", "title category images")
+      .populate("requestedItem", "title category images")
+      .populate("requester", "name email")
+      .populate("owner", "name email");
+
     res.status(200).json(swaps);
   } catch (error) {
-    console.error("Error fetching swaps:", error);
-    res.status(500).json({ message: "Failed to fetch swaps" });
+    res.status(500).json({ message: "Error fetching swaps", error });
   }
 };
+
