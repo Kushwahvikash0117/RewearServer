@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const swapSchema = new mongoose.Schema(
   {
-    requester: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // jisne request bheji
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },     // jiska item hai
-    requestedItem: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true }, // jis item pe swap request ki
-    offeredItem: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },   // jo item wo badle me de raha hai
+    requester: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    requestedItem: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
+    offeredItem: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
     status: {
       type: String,
       enum: ["pending", "accepted", "rejected"],
@@ -15,4 +15,4 @@ const swapSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Swap", swapSchema);
+export default mongoose.models.Swap || mongoose.model("Swap", swapSchema);
